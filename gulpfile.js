@@ -7,7 +7,12 @@ var del = require('del');
 var debug = require('gulp-debug');
 var minimist = require('minimist');
 var gulpif = require('gulp-if');
+var browserSync = require('browser-sync').create();
 
+
+/*
+Configs
+ */
 var srcDir = 'src/';
 var dest = 'dist/';
 var assetDest = dest + 'assets/'
@@ -47,7 +52,7 @@ gulp.task('clean', function (done) {
     gulp.src(removePattern)
         .pipe(isShowFile(options.fileInfo, 'del:'))
         .pipe(vinylPaths(del))
-        .on('end', function(){
+        .on('end', function () {
             done();
             gutil.log("clean complete");
             gutil.beep();
@@ -57,6 +62,16 @@ gulp.task('clean', function (done) {
             throw new gutil.PluginError("del", err, { showStack: true });
         })
         .resume(); // NOTE: be sure to call this for stream to start working!
-    
 });
 
+gulp.task('browser-sync', function () {
+    browserSync.init({
+        server: {
+            baseDir: dest
+        }
+    });
+});
+
+gulp.task('default', ['clean', 'webpack', 'browser-sync'], function () {
+    gulp.watch("src/*", ['webpack']).on('change', browserSync.reload);
+});
