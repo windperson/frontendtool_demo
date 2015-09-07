@@ -72,6 +72,6 @@ gulp.task('browser-sync', function () {
     });
 });
 
-gulp.task('default', ['clean', 'webpack', 'browser-sync'], function () {
-    gulp.watch("src/*", ['webpack']).on('change', browserSync.reload);
+gulp.task('default', ['webpack', 'browser-sync'], function () {
+    gulp.watch("src/**/*", ['webpack']).on('change', browserSync.reload);
 });

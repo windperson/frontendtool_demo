@@ -1,3 +1,4 @@
 module.exports = function (msg) {
-  alert('Hello ' + msg + '!');
+  var concat = require('./strconcat');
+  alert(concat('Hello ' + msg + '!'));
 };
