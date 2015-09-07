@@ -20,8 +20,11 @@ gulp.task('webpack', function () {
     return gulp.src(srcJs)
         .pipe(named())
         .pipe(webpackStream(require(webPackConfig), null, function (err, stats) {
-            if (err) { throw new gutil.PluginError("webpack", err, { showStack: true }); }
+            if (err) {
+                throw new gutil.PluginError("webpack", err, { showStack: true });
+            }
             gutil.log("[webpack]", stats.toString());
+            gutil.beep();
         }))
         .pipe(gulp.dest(assetDest));
 });
@@ -37,7 +40,23 @@ function isShowFile(isShowFile, promptMsg) {
 }
 
 
-gulp.task('clean', function () {
-    return gulp.src([assetDest +'/**/*.*'])
-        .pipe(vinylPaths(del)).pipe(isShowFile(options.fileInfo, 'del:'));
+//to manage what to clean
+var removePattern = ['dist/assets/**/*'];
+
+gulp.task('clean', function (done) {
+    gulp.src(removePattern)
+        .pipe(isShowFile(options.fileInfo, 'del:'))
+        .pipe(vinylPaths(del))
+        .on('end', function(){
+            done();
+            gutil.log("clean complete");
+            gutil.beep();
+        })
+        .on('error', function (err) {
+            done();
+            throw new gutil.PluginError("del", err, { showStack: true });
+        })
+        .resume(); // NOTE: be sure to call this for stream to start working!
+    
 });
+
