@@ -2,19 +2,23 @@
 <html>
 
 <head>
+  <meta charset="UTF-8">
+  <title>Angular + Typescript in Webpack</title>
 </head>
 
 <body>
   <div>
     <div class="hello">
-      <span>gulp</span><br/>
-        <span>browser-sync</span><br/>
-        <span>webpack</span> demo</div>
+      <span>gulp</span>
+      <br/>
+      <span>browser-sync</span>
+      <br/>
+      <span>webpack</span> demo</div>
     <br/>
     <input id="myTxtBox" type="text" value="Webpack is Compiler for Web" />
     <input type="button" value="alert" onclick="sayHello()" />
   </div>
-
+  <p>Angular is working: {{1 + 1 === 2}}</p>
   <!-- inject:js -->
   <script src="assets/lib.bundle.js"></script>
   <script src="assets/bundle.js"></script>

@@ -1,5 +1,15 @@
 /// <reference path="../Scripts/typings/tsd.d.ts" />
 
+// load Angular
+require('angular');
+
+angular.element(document).ready(function () {
+  angular.bootstrap(document, [appModule.name], {
+    //strictDi: true
+  });
+});
+
+
 require('../css/style.css');
 require(['hash-change', './alert'], function (hashChange, yell) {
 
