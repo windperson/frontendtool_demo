@@ -22,7 +22,7 @@ module.exports = {
     filename: bundle_output_name,
     chunkFilename: chunkNamePattern
   },
-  // devtool: 'source-map',
+  devtool: 'source-map',
   module: {
     loaders: [
       { test: /\.tsx?$/, loader: 'ts-loader' },
@@ -37,18 +37,18 @@ module.exports = {
       name: 'lib',
       filename: lib_output_name,
     }),
-    
-    // new UglifyJsPlugin({
-    //   exclude: [],
-    //   compress: {
-    //     warnings: false,
-    //   },
-    //   sourceMap: true,
-    //   mangle: {
-    //     except: ['$', 'exports', 'require']
-    //   }
-    // }),
-    
+
+    new UglifyJsPlugin({
+      exclude: [],
+      compress: {
+        warnings: false,
+      },
+      sourceMap: true,
+      mangle: {
+        except: ['$', 'exports', 'require']
+      }
+    }),
+
     new ExtractTextPlugin("[name].css", { allChunks: true }),
   ],
   resolve: {
