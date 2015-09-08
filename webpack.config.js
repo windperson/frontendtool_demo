@@ -5,20 +5,24 @@ var UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 
 var path = require('path');
 var buildDir = './dist';
+var bundle_output_name = 'bundle.js';
 var chunkNamePattern = "[id].lib.js";
+var lib_output_name ='lib.bundle.js';
 
 module.exports = {
+  bundle_output_name: bundle_output_name,
+  lib_output_name : lib_output_name,
   entry: {
-    app: ['./src/app.js'],
+    app: ['./src/js/app.js'],
     lib: ['hash-change']
   },
   output: {
     publicPath: "assets/",
     path: path.join(path.resolve(buildDir), 'assets'),
-    filename: 'bundle.js',
+    filename: bundle_output_name,
     chunkFilename: chunkNamePattern
   },
-  //devtool: 'source-map',
+  // devtool: 'source-map',
   module: {
     loaders: [
       { test: /\.css$/, exlcude: /\.useable\.css$/, loader: "style!css" },
@@ -30,7 +34,7 @@ module.exports = {
     new OccurrenceOrderPlugin(),
     new CommonsChunkPlugin({
      name: 'lib',
-     filename: 'lib.bundle.js',
+     filename: lib_output_name,
     }),
     
     // new UglifyJsPlugin({

@@ -1,5 +1,5 @@
-require('./css/style.css');
-require(['hash-change', './js/alert.js'], function (hashChange, yell) {
+require('../css/style.css');
+require(['hash-change', './alert'], function (hashChange, yell) {
 
   hashChange.on('change', function (hash) {
     yell(hash);
@@ -8,7 +8,7 @@ require(['hash-change', './js/alert.js'], function (hashChange, yell) {
 
 function sayHello() {
   var text = document.getElementById("myTxtBox").value;
-  require(['./js/alert.js'], function (yell) {
+  require(['./alert.js'], function (yell) {
     yell(text);
   });
 }
