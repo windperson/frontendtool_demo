@@ -3,6 +3,11 @@ body {
 }
 
 div.hello {
-  color: green;
+  display: inline-block;
   background-color: lavenderblush
+}
+
+div.hello > span{
+  font-weight: bold;
+  color: green;
 }

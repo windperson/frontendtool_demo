@@ -2,7 +2,7 @@ require('../css/style.css');
 require(['hash-change', './alert'], function (hashChange, yell) {
 
   hashChange.on('change', function (hash) {
-    yell(hash);
+    yell('Hello',hash);
   });
 });
 

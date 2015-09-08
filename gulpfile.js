@@ -6,11 +6,9 @@ var vinylPaths = require('vinyl-paths');
 var del = require('del');
 var minimist = require('minimist');
 var series = require('stream-series');
-var runseq = require('run-sequence');
 var inject = require('gulp-inject');
-var browserSync = require('browser-sync').create();
 
-var debugUtil = require('./gulp-util');
+var miscUtil = require('./gulp-util');
 
 var defaultOptions = {
     boolean: 'listFiles',
@@ -40,7 +38,7 @@ gulp.task('index', ['webpack', 'copy:index'], function () {
     var injectAppStream = gulp.src(assetDest + 'bundle.js', { read: false });
 
     var injectStream = series(injectLibStream, injectAppStream)
-        .pipe(debugUtil.isShowFile(options.listFiles, 'to inject:'));
+        .pipe(miscUtil.isShowFile(options.listFiles, 'to inject:'));
 
     return target.pipe(inject(injectStream, { relative: true }))
         .pipe(gulp.dest(dest));
@@ -68,7 +66,7 @@ var removePattern = ['dist/assets/**/*', 'dist/index.html'];
 
 gulp.task('clean', function (done) {
     gulp.src(removePattern)
-        .pipe(debugUtil.isShowFile(options.listFiles, 'del:'))
+        .pipe(miscUtil.isShowFile(options.listFiles, 'del:'))
         .pipe(vinylPaths(del))
         .on('end', function () {
             done();
@@ -82,14 +80,9 @@ gulp.task('clean', function (done) {
         .resume(); // NOTE: be sure to call this for stream to start working!
 });
 
-gulp.task('browser-sync', function () {
-    browserSync.init({
-        server: {
-            baseDir: dest
-        }
-    });
-});
+miscUtil.initLiveReload('browser-sync', dest, gulp);
 
 gulp.task('default', ['build', 'browser-sync'], function () {
-    gulp.watch("src/**/*", ['build']).on('change', browserSync.reload);
+    miscUtil.registLiveReload('reload_browser', ['build']);
+    gulp.watch("src/**/*", ['reload_browser']);
 });

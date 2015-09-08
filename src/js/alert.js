@@ -1,4 +1,9 @@
-module.exports = function (msg) {
+module.exports = function (prefix, msg) {
   var concat = require('./strconcat');
-  alert(concat('Hello ' + msg + '!'));
+  if (msg == null || typeof (msg) === 'undefined') {
+    msg = prefix;
+    return alert(msg);
+  }
+
+  alert(concat(prefix + ' ' + msg + '!'));
 };
