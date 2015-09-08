@@ -1,3 +1,5 @@
+/// <reference path="../Scripts/typings/tsd.d.ts" />
+
 require('../css/style.css');
 require(['hash-change', './alert'], function (hashChange, yell) {
 
@@ -7,10 +9,10 @@ require(['hash-change', './alert'], function (hashChange, yell) {
 });
 
 function sayHello() {
-  var text = document.getElementById("myTxtBox").value;
-  require(['./alert.js'], function (yell) {
+  var text = (<HTMLInputElement>document.getElementById("myTxtBox")).value ;
+  require(['./alert'], function (yell) {
     yell(text);
   });
 }
 
-window.sayHello = sayHello;
+(<any>window).sayHello = sayHello;

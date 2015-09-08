@@ -7,13 +7,13 @@ var path = require('path');
 var buildDir = './dist';
 var bundle_output_name = 'bundle.js';
 var chunkNamePattern = "[id].lib.js";
-var lib_output_name ='lib.bundle.js';
+var lib_output_name = 'lib.bundle.js';
 
 module.exports = {
   bundle_output_name: bundle_output_name,
-  lib_output_name : lib_output_name,
+  lib_output_name: lib_output_name,
   entry: {
-    app: ['./src/js/app.js'],
+    app: ['./src/ts/app.ts'],
     lib: ['hash-change']
   },
   output: {
@@ -25,6 +25,7 @@ module.exports = {
   // devtool: 'source-map',
   module: {
     loaders: [
+      { test: /\.tsx?$/, loader: 'ts-loader' },
       { test: /\.css$/, exlcude: /\.useable\.css$/, loader: "style!css" },
       { test: /\.png$/, loader: "url-loader?limit=100000" },
       { test: /\.jpg$/, loader: "file-loader" }
@@ -33,8 +34,8 @@ module.exports = {
   plugins: [
     new OccurrenceOrderPlugin(),
     new CommonsChunkPlugin({
-     name: 'lib',
-     filename: lib_output_name,
+      name: 'lib',
+      filename: lib_output_name,
     }),
     
     // new UglifyJsPlugin({
@@ -51,7 +52,8 @@ module.exports = {
     new ExtractTextPlugin("[name].css", { allChunks: true }),
   ],
   resolve: {
-    moduleDirectories: ['node_modules', 'bower_components', 'web_modules']
+    moduleDirectories: ['node_modules', 'bower_components', 'web_modules'],
+    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
   },
   target: "web"
 };
