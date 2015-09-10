@@ -6,8 +6,8 @@ var browserSync = require('browser-sync').create();
 
 module.exports = {
 
-    isShowFile: function (flag, promptMsg) {
-        return gulpif(flag, debug({ title: promptMsg }))
+    isShowFile: function (showFlag, promptMsg) {
+        return gulpif(showFlag, debug({ title: promptMsg }))
     },
 
     initLiveReload: function (task_name, watch_path, gulp_instance) {

@@ -23,7 +23,7 @@ var srcDir = 'src/';
 var dest = 'dist/';
 var assetDest = dest + 'assets/'
 
-var webPackConfig = './webpack.config.js';
+var webPackConfig = require('./webpack.config.js');
 
 var srcJs = srcDir + 'app.js';
 
@@ -34,8 +34,8 @@ gulp.task('copy:index', function () {
 gulp.task('index', ['webpack', 'copy:index'], function () {
     var target = gulp.src(dest + 'index.html');
 
-    var injectLibStream = gulp.src(assetDest + 'lib.bundle.js', { read: false });
-    var injectAppStream = gulp.src(assetDest + 'bundle.js', { read: false });
+    var injectLibStream = gulp.src(assetDest + webPackConfig.lib_output_name, { read: false });
+    var injectAppStream = gulp.src(assetDest + webPackConfig.bundle_output_name, { read: false });
 
     var injectStream = series(injectLibStream, injectAppStream)
         .pipe(miscUtil.isShowFile(options.listFiles, 'to inject:'));
@@ -47,7 +47,7 @@ gulp.task('index', ['webpack', 'copy:index'], function () {
 gulp.task('webpack', function () {
     return gulp.src(srcJs)
         .pipe(named())
-        .pipe(webpackStream(require(webPackConfig), null, function (err, stats) {
+        .pipe(webpackStream(webPackConfig, null, function (err, stats) {
             if (err) {
                 throw new gutil.PluginError("webpack", err, { showStack: true });
             }
