@@ -3,5 +3,5 @@ module angularDemo.controllers{
 		
 	}
 	
-	angular.module("angularDemo").controller("angularDemo.controllers.angularDemoController", AngualarDemoController);
+	angular.module("angularDemo",[]).controller("angularDemo.controllers.angularDemoController", AngualarDemoController);
 }

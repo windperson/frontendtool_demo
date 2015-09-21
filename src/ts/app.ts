@@ -12,12 +12,12 @@ import {angularDemo} from './route';
 
     angular.module('mwl.bluebird').run(($q, $log) => {
       $q.onPossiblyUnhandledRejection(function(err) {
-        $log.warn('Unhandled rejection', err);
+        // $log.warn('Unhandled rejection', err);
       });
     });
 
     angular.element(document).ready(() => {
-      angular.bootstrap(document.getElementById("angularCanvas"), ['angularDemo']);
+      angular.bootstrap(document.getElementById("angularContainer"), ['angularDemo']);
     });
   }
   )();
