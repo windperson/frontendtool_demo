@@ -1,5 +1,3 @@
-/// <reference path="../Scripts/typings/tsd.d.ts" />
-
 module.exports = function(prefix: string, msg: string) {
   var concat = require('./strconcat');
   if (msg == null || typeof (msg) === 'undefined') {
