@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"inlineSourceMap": false,
+		"module": "commonjs",
+		"newLine": "CRLF",
+		"noEmitOnError": true,
+		"removeComments": true,
+		"noResolve": false,
+		"sourceMap": true,
+		"target": "es5"
+	},
+	"exclude":[
+		"./dist",
+		"node_modules"
+	]
+}

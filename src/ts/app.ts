@@ -1,5 +1,5 @@
-/// <reference path="../Scripts/typings/tsd.d.ts" />
 import {angularDemo} from './route';
+
 (
   (): void => {
     
